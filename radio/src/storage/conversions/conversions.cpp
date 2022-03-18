@@ -225,6 +225,7 @@ void eeConvertModel(int id, int version)
 bool eeConvert(uint8_t start_version)
 {
   const char *msg = NULL;
+  VirtualFS& vfs = VirtualFS::instance();
 
   switch (start_version) {
     case 219:
@@ -250,8 +251,8 @@ bool eeConvert(uint8_t start_version)
   int version = start_version;
   (void)version;
 
-  sdCheckAndCreateDirectory(RADIO_PATH);
-  sdCheckAndCreateDirectory(MODELS_PATH);
+  vfs.heckAndCreateDirectory(RADIO_PATH);
+  vfs.heckAndCreateDirectory(MODELS_PATH);
 
 #if STORAGE_CONVERSIONS < 220
   if (version == 219) {
