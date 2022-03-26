@@ -1371,7 +1371,9 @@ void opentxClose(uint8_t shutdown)
 #endif
   }
 
+#if defined(SDCARD)
   logsClose();
+#endif
 
   storageFlushCurrentModel();
 
@@ -1408,7 +1410,6 @@ void opentxClose(uint8_t shutdown)
 #endif
 #endif
 
-  sdDone();
   VirtualFS::instance().stop();
 }
 
@@ -1416,13 +1417,12 @@ void opentxResume()
 {
   TRACE("opentxResume");
 
-  sdMount();
+  VirtualFS::instance().restart();
 #if defined(COLORLCD) && defined(LUA)
   // reload widgets
   luaInitThemesAndWidgets();
 #endif
 
-  VirtualFS::instance().restart();
   storageReadAll();
 
 #if defined(COLORLCD)
@@ -1691,7 +1691,7 @@ void opentxInit()
   // storage related stuff, only done if not unexpectedShutdown
   if (!globalData.unexpectedShutdown) {
 
-    VirtualFS& vfs = VirtualFS::instance(); // initialize storage subsystem
+    VirtualFS& vfs __attribute__((unused)) = VirtualFS::instance(); // initialize storage subsystem
 
 #if !defined(COLORLCD)
     if (!vfs.defaultStorageAvailable()) {
@@ -1721,8 +1721,9 @@ void opentxInit()
       }
     }
 #endif
-
+#if defined(SDCARD)
     logsInit();
+#endif
   }
 
 #if defined(EEPROM)
