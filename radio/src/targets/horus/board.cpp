@@ -23,6 +23,7 @@
 #include "hal/adc_driver.h"
 #include "hal/serial_driver.h"
 #include "hal/serial_port.h"
+#include "hal/trainer_driver.h"
 
 #include "board.h"
 #include "timers_driver.h"
@@ -168,6 +169,7 @@ void boardInit()
 #endif
 
   pwrInit();
+  init_trainer();
   pwrOn();
   delaysInit();
 
