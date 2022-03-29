@@ -26,6 +26,7 @@
 #include "debug.h"
 
 #include "hal/adc_driver.h"
+#include "hal/trainer_driver.h"
 #include "stm32_hal_adc.h"
 #include "timers_driver.h"
 
@@ -137,6 +138,7 @@ void boardInit()
   TRACE("RCC->CSR = %08x", RCC->CSR);
 
   pwrInit();
+  init_trainer();
   extModuleInit();
   battery_charge_init();
   globalData.flyskygimbals = true;
