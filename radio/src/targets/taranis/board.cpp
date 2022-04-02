@@ -127,7 +127,6 @@ void boardInit()
                          INTERRUPT_xMS_RCC_APB1Periph |
                          TIMER_2MHz_RCC_APB1Periph |
                          SD_RCC_APB1Periph |
-                         TRAINER_RCC_APB1Periph |
                          TELEMETRY_RCC_APB1Periph |
                          AUX_SERIAL_RCC_APB1Periph |
                          INTMODULE_RCC_APB1Periph |
