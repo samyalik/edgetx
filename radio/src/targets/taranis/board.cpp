@@ -128,8 +128,6 @@ void boardInit()
                          TIMER_2MHz_RCC_APB1Periph |
                          SD_RCC_APB1Periph |
                          TELEMETRY_RCC_APB1Periph |
-                         AUX_SERIAL_RCC_APB1Periph |
-                         INTMODULE_RCC_APB1Periph |
                          TRAINER_MODULE_RCC_APB1Periph |
                          MIXER_SCHEDULER_TIMER_RCC_APB1Periph |
                          BT_RCC_APB1Periph,
@@ -139,9 +137,6 @@ void boardInit()
                          BACKLIGHT_RCC_APB2Periph |
                          ADC_RCC_APB2Periph |
                          HAPTIC_RCC_APB2Periph |
-                         INTMODULE_RCC_APB2Periph |
-                         EXTMODULE_RCC_APB2Periph |
-                         TRAINER_MODULE_RCC_APB2Periph |
                          BT_RCC_APB2Periph |
                          TELEMETRY_RCC_APB2Periph,
                          ENABLE);
