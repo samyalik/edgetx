@@ -128,7 +128,6 @@ void boardInit()
                          TIMER_2MHz_RCC_APB1Periph |
                          SD_RCC_APB1Periph |
                          TELEMETRY_RCC_APB1Periph |
-                         TRAINER_MODULE_RCC_APB1Periph |
                          MIXER_SCHEDULER_TIMER_RCC_APB1Periph |
                          BT_RCC_APB1Periph,
                          ENABLE);
