@@ -1175,6 +1175,10 @@ extern Clipboard clipboard;
   #include "gps.h"
 #endif
 
+#if defined(SPACEMOUSE)
+  #include "spacemouse.h"
+#endif
+
 #if defined(JACK_DETECT_GPIO)
 enum JackMode {
   JACK_UNSELECTED_MODE,
