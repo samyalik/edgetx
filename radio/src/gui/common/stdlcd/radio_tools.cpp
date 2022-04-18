@@ -108,7 +108,11 @@ void menuRadioTools(event_t event)
 
       strcat(path, name.c_str());
       if (isRadioScriptTool(name.c_str()))
-        addRadioScriptTool(index++, path);
+      {
+        std::string p = ":";
+        p += path;
+        addRadioScriptTool(index++, p.c_str());
+      }
     }
     dir.close();
   }
