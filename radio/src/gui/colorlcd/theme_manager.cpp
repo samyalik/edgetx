@@ -306,7 +306,6 @@ void ThemeFile::applyBackground()
     if (result == VfsError::OK) {
       file.close();
       instance->setBackgroundImageFileName((char *)rootDir.c_str());
-      f_close(&file);
     } else {
       // TODO: This needs to be made user configurable, not
       // require the file be deleted to remove global background
@@ -318,7 +317,6 @@ void ThemeFile::applyBackground()
       if (result == VfsError::OK) {
         file.close();
         instance->setBackgroundImageFileName(fileName);
-        f_close(&file);
       } else {
         instance->setBackgroundImageFileName("");
       }
