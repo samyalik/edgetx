@@ -720,6 +720,4 @@ int  bootloaderMain()
   return 0;
 }
 
-#if defined(PCBHORUS) || defined(PCBNV14) || defined(PCBPL18)
 void *__dso_handle = nullptr;
-#endif
