@@ -264,7 +264,7 @@ void evalFunctions(const CustomFunctionData * functions, CustomFunctionsContext 
             break;
           }
 
-#if defined(SDCARD)
+#if defined(SDCARD)||1
           case FUNC_PLAY_SOUND:
           case FUNC_PLAY_TRACK:
           case FUNC_PLAY_VALUE:

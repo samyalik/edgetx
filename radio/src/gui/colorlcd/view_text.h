@@ -24,6 +24,7 @@
 #include "menus.h"
 #include "page.h"
 #include "static.h"
+#include "VirtualFS.h"
 
 #include "LvglWrapper.h"
 
@@ -43,7 +44,7 @@ class ViewTextWindow : public Page
     buildBody(&body);
   };
 
-  FRESULT sdReadTextFileBlock(const char* filename, const uint32_t bufSize,
+  VfsError sdReadTextFileBlock(const char* filename, const uint32_t bufSize,
                               const uint32_t offset);
 
   ~ViewTextWindow()
