@@ -940,20 +940,15 @@ void menuModelSetup(event_t event)
           }
         }
 #else
-        uint8_t index = 0;
-        if (g_model.moduleData[INTERNAL_MODULE].type == MODULE_TYPE_ISRM_PXX2) {
-          index = 1 + g_model.moduleData[INTERNAL_MODULE].subType;
-        }
+        uint8_t index = g_model.moduleData[INTERNAL_MODULE].subType;
         lcdDrawTextAtIndex(MODEL_SETUP_2ND_COLUMN, y, STR_ISRM_RF_PROTOCOLS, index, attr);
         if (attr) {
-          index = checkIncDec(event, index, 0, MODULE_SUBTYPE_ISRM_PXX2_ACCST_D16 + 1 /* because of --- */, EE_MODEL);
+          index = checkIncDec(event, index, 0, MODULE_SUBTYPE_ISRM_PXX2_ACCST_D16, EE_MODEL);
           if (checkIncDec_Ret) {
             memclear(&g_model.moduleData[INTERNAL_MODULE], sizeof(ModuleData));
-            if (index > 0) {
-              g_model.moduleData[INTERNAL_MODULE].type = MODULE_TYPE_ISRM_PXX2;
-              g_model.moduleData[INTERNAL_MODULE].subType = index - 1;
-              g_model.moduleData[INTERNAL_MODULE].channelsCount = defaultModuleChannels_M8(INTERNAL_MODULE);
-            }
+            g_model.moduleData[INTERNAL_MODULE].type = MODULE_TYPE_ISRM_PXX2;
+            g_model.moduleData[INTERNAL_MODULE].subType = index;
+            g_model.moduleData[INTERNAL_MODULE].channelsCount = defaultModuleChannels_M8(INTERNAL_MODULE);
           }
         }
 #endif
