@@ -282,12 +282,7 @@ void editTimerCountdown(int timerIdx, coord_t y, LcdFlags attr, event_t event)
 #define IF_INTERNAL_MODULE_ON(x)          (IS_INTERNAL_MODULE_ENABLED() ? (uint8_t)(x) : HIDDEN_ROW)
 #define IF_EXTERNAL_MODULE_ON(x)          (IS_EXTERNAL_MODULE_ENABLED() ? (uint8_t)(x) : HIDDEN_ROW)
 
-#if defined(INTERNAL_MODULE_PXX1)
 #define INTERNAL_MODULE_TYPE_ROWS         ((isModuleXJT(INTERNAL_MODULE) || isModulePXX2(INTERNAL_MODULE)) ? (uint8_t)1 : (uint8_t)0) // Module type + RF protocols
-#else
-#define INTERNAL_MODULE_TYPE_ROWS         (0) // Module type + RF protocols
-#endif
-
 #define TRAINER_CHANNELS_ROW              (IS_SLAVE_TRAINER() ? (uint8_t)1 : HIDDEN_ROW)
 #define TRAINER_PPM_PARAMS_ROW            (g_model.trainerData.mode == TRAINER_MODE_SLAVE ? (uint8_t)2 : HIDDEN_ROW)
 #define TRAINER_BLUETOOTH_M_ROW           ((bluetooth.distantAddr[0] == '\0' || bluetooth.state == BLUETOOTH_STATE_CONNECTED) ? (uint8_t)0 : (uint8_t)1)
@@ -912,12 +907,11 @@ void menuModelSetup(event_t event)
       case ITEM_MODEL_SETUP_INTERNAL_MODULE_TYPE:
       {
         lcdDrawTextAlignedLeft(y, INDENT TR_MODE);
-#if defined(INTERNAL_MODULE_PXX1)
         lcdDrawTextAtIndex(MODEL_SETUP_2ND_COLUMN, y, STR_INTERNAL_MODULE_PROTOCOLS, g_model.moduleData[INTERNAL_MODULE].type, menuHorizontalPosition==0 ? attr : 0);
         if (isModuleXJT(INTERNAL_MODULE))
           lcdDrawTextAtIndex(lcdNextPos + 3, y, STR_XJT_ACCST_RF_PROTOCOLS, 1 + g_model.moduleData[INTERNAL_MODULE].subType, menuHorizontalPosition==1 ? attr : 0);
         else if (isModuleISRM(INTERNAL_MODULE))
-          lcdDrawTextAtIndex(lcdNextPos + 3, y, STR_ISRM_RF_PROTOCOLS, 1 + g_model.moduleData[INTERNAL_MODULE].subType, menuHorizontalPosition==1 ? attr : 0);
+          lcdDrawTextAtIndex(lcdNextPos + 3, y, STR_ISRM_RF_PROTOCOLS, g_model.moduleData[INTERNAL_MODULE].subType, menuHorizontalPosition==1 ? attr : 0);
         else if (isModuleCrossfire(INTERNAL_MODULE))
           lcdDrawTextAtIndex(lcdNextPos + 3, y, STR_CRSF_BAUDRATE, CROSSFIRE_STORE_TO_INDEX(g_eeGeneral.internalModuleBaudrate),0);
         if (attr) {
@@ -936,22 +930,16 @@ void menuModelSetup(event_t event)
             }
           }
           else if (isModulePXX2(INTERNAL_MODULE)) {
-            g_model.moduleData[INTERNAL_MODULE].subType = checkIncDec(event, g_model.moduleData[INTERNAL_MODULE].subType, 0, MODULE_SUBTYPE_ISRM_PXX2_ACCST_D16, EE_MODEL, isRfProtocolAvailable);
+            g_model.moduleData[INTERNAL_MODULE].subType = checkIncDec(event, g_model.moduleData[INTERNAL_MODULE].subType, 0, MODULE_SUBTYPE_ISRM_PXX2_ACCST_D16, EE_MODEL);
+            if (checkIncDec_Ret) {
+              uint8_t index = g_model.moduleData[INTERNAL_MODULE].subType;
+              memclear(&g_model.moduleData[INTERNAL_MODULE], sizeof(ModuleData));
+              g_model.moduleData[INTERNAL_MODULE].type = MODULE_TYPE_ISRM_PXX2;
+              g_model.moduleData[INTERNAL_MODULE].subType = index;
+              g_model.moduleData[INTERNAL_MODULE].channelsCount = defaultModuleChannels_M8(INTERNAL_MODULE);
+            }
           }
         }
-#else
-        uint8_t index = g_model.moduleData[INTERNAL_MODULE].subType;
-        lcdDrawTextAtIndex(MODEL_SETUP_2ND_COLUMN, y, STR_ISRM_RF_PROTOCOLS, index, attr);
-        if (attr) {
-          index = checkIncDec(event, index, 0, MODULE_SUBTYPE_ISRM_PXX2_ACCST_D16, EE_MODEL);
-          if (checkIncDec_Ret) {
-            memclear(&g_model.moduleData[INTERNAL_MODULE], sizeof(ModuleData));
-            g_model.moduleData[INTERNAL_MODULE].type = MODULE_TYPE_ISRM_PXX2;
-            g_model.moduleData[INTERNAL_MODULE].subType = index;
-            g_model.moduleData[INTERNAL_MODULE].channelsCount = defaultModuleChannels_M8(INTERNAL_MODULE);
-          }
-        }
-#endif
         break;
       }
 
