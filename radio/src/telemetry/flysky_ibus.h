@@ -33,6 +33,8 @@ void processFlySkyPacket(const uint8_t * packet);
 
 void processFlySkyPacketAC(const uint8_t * packet);
 
+#if defined(AFHDS2)
+
 enum FlySkySensorType_E {
   FLYSKY_SENSOR_RX_VOLTAGE,
   FLYSKY_SENSOR_RX_SIGNAL,
@@ -78,6 +80,5 @@ void processInternalFlySkyTelemetryData(uint8_t byte);
 uint8_t intmoduleGetByte(uint8_t * byte);
 
 extern bool syncAfhds2Module;
-
+#endif // defined(AFHDS2)
 #endif
-

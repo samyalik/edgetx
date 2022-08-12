@@ -22,6 +22,10 @@
 #include "opentx.h"
 #include "flysky_ibus.h"
 
+#if defined(PCBNV14)
+extern uint32_t NV14internalModuleFwVersion;
+#endif
+
 /*
  *  TXID + RXID are already skipped in MULTI module to save memory+transmission time, format from Multi is:
  *  AA or AC | TX_RSSI | sensor ...
@@ -408,6 +412,8 @@ int32_t getALT(uint32_t value)
   return result;
 }
 
+#if defined(AFHDS2)
+
 #define FLYSKY_FIXED_RX_VOLTAGE (uint8_t)(FLYSKY_SENSOR_RX_VOLTAGE + (uint8_t)0xA0)
 
 #define MIN_SNR 8
@@ -464,15 +470,6 @@ const FlyskyNv14Sensor Nv14Sensor[]=
     defaultNv14Sensor
 };
 
-
-extern uint32_t NV14internalModuleFwVersion;
-
-int32_t CalculateAltitude(unsigned int pressure)
-{
-  int32_t alt = getALT(pressure);
-  return alt;
-}
-
 const FlyskyNv14Sensor* getFlyskyNv14Sensor(uint16_t id, uint8_t subId)
 {
   for (const FlyskyNv14Sensor* sensor = Nv14Sensor; sensor->id; sensor++) {
@@ -499,8 +496,14 @@ void flySkyNv14SetDefault(int index, uint8_t id, uint8_t subId,
   storageDirty(EE_MODEL);
 }
 
-#if defined(PCB_NV14)
+
 inline tmr10ms_t getTicks() { return g_tmr10ms; }
+
+int32_t CalculateAltitude(unsigned int pressure)
+{
+  int32_t alt = getALT(pressure);
+  return alt;
+}
 
 int32_t GetSensorValueFlySkyNv14(const FlyskyNv14Sensor* sensor,
                                  const uint8_t* data)
@@ -683,4 +686,4 @@ void flySkyNv14ProcessTelemetryPacket(const uint8_t* ptr, uint8_t size)
   }
 }
 
-#endif
+#endif // defined(AFHDS2)

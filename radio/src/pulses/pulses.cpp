@@ -24,7 +24,6 @@
 #include "heartbeat_driver.h"
 
 #include "pulses/pxx2.h"
-#include "pulses/flysky.h"
 
 #if defined(INTMODULE_USART)
 #include "intmodule_serial_driver.h"
