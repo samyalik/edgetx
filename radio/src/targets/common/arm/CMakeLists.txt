@@ -229,7 +229,7 @@ endif()
 
 if(AFHDS2 AND INTERNAL_MODULE_AFHDS2A)
   add_definitions(-DAFHDS2)
-  set(SRC ${SRC} telemetry/flysky_nv14.cpp)
+  set(SRC ${SRC} telemetry/flysky_ibus.cpp)
   set(PULSES_SRC ${PULSES_SRC} flysky.cpp)
 endif()
 

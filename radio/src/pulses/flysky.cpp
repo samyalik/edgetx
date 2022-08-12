@@ -24,7 +24,7 @@
 #include "opentx.h"
 
 #include "flysky.h"
-#include "telemetry/flysky_nv14.h"
+#include "telemetry/flysky_ibus.h"
 
 #define IS_VALID_COMMAND_ID(id) ((id) < CMD_LAST)
 

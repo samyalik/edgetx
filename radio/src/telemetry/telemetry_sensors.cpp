@@ -37,10 +37,6 @@
   #include "ghost.h"
 #endif
 
-#if defined(PCBNV14)
-  #include "telemetry/flysky_nv14.h"
-#endif
-
 #if defined(MULTIMODULE)
   #include "hitec.h"
   #include "hott.h"
