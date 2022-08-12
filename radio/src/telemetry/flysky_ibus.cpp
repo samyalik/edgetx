@@ -499,6 +499,7 @@ void flySkyNv14SetDefault(int index, uint8_t id, uint8_t subId,
   storageDirty(EE_MODEL);
 }
 
+#if defined(PCB_NV14)
 inline tmr10ms_t getTicks() { return g_tmr10ms; }
 
 int32_t GetSensorValueFlySkyNv14(const FlyskyNv14Sensor* sensor,
@@ -681,3 +682,5 @@ void flySkyNv14ProcessTelemetryPacket(const uint8_t* ptr, uint8_t size)
     telemetryStreaming = TELEMETRY_TIMEOUT10ms;
   }
 }
+
+#endif
