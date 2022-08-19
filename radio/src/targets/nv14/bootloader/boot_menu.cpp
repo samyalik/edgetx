@@ -118,7 +118,7 @@ void bootloaderDrawScreen(BootloaderState st, int opt, const char* str)
         lcd->drawText(62, 75, LV_SYMBOL_CHARGE, BL_FOREGROUND);
         coord_t pos = lcd->drawText(84, 75, "Write Firmware", BL_FOREGROUND);
         pos += 8;
-        if(boardGetPcbRev() == PCBREV_EL18)
+        if(hardwareOptions.pcbrev == PCBREV_EL18)
         {
             lcd->drawText(62, 110, LV_SYMBOL_USB, BL_FOREGROUND);
             lcd->drawText(84, 110, "RF USB access", BL_FOREGROUND);
@@ -264,7 +264,7 @@ void bootloaderDrawFilename(const char* str, uint8_t line, bool selected)
 
 uint32_t bootloaderGetMenuItemCount(int baseCount)
 {
-    if(boardGetPcbRev() == PCBREV_EL18)
+    if(hardwareOptions.pcbrev  == PCBREV_EL18)
         return baseCount+1;
 
     return baseCount;

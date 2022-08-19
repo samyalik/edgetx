@@ -112,7 +112,7 @@ void delay_self(int count)
                                EXTMODULE_RCC_APB2Periph \
                               )
 
-uint8_t boardGetPcbRev()
+static uint8_t boardGetPcbRev()
 {
   // detect NV14 vs EL18
   if (GPIO_ReadInputDataBit(INTMODULE_PWR_GPIO, INTMODULE_PWR_GPIO_PIN) == Bit_SET) {
@@ -122,6 +122,12 @@ uint8_t boardGetPcbRev()
     // pull-down connected: NV14
     return PCBREV_NV14;
   }
+}
+
+void boardBootloaderInit()
+{
+  // detect NV14 vs EL18
+  hardwareOptions.pcbrev = boardGetPcbRev();
 }
 
 void boardInit()

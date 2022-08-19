@@ -53,6 +53,10 @@ extern uint16_t sessionTimer;
 #define SLAVE_MODE()                    (g_model.trainerData.mode == TRAINER_MODE_SLAVE)
 #define TRAINER_CONNECTED()             (true)
 
+// initilizes the board for the bootloader
+#define HAVE_BOARD_BOOTLOADER_INIT 1
+void boardBootloaderInit();
+
 // Board driver
 void boardInit();
 void boardOff();
@@ -107,8 +111,6 @@ typedef struct {
 extern HardwareOptions hardwareOptions;
 
 #if !defined(SIMU)
-
-uint8_t boardGetPcbRev();
 
 #define INTERNAL_MODULE_OFF()                                     \
   do {                                                            \
