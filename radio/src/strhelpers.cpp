@@ -675,7 +675,21 @@ char *getSourceString(char (&dest)[L], mixsrc_t idx)
       strAppendStringWithIndex(dest, STR_CH, ch + 1);
     }
   } else if (idx <= MIXSRC_LAST_GVAR) {
+#if defined(LIBOPENUI)
+    if (g_model.gvars[idx - MIXSRC_GVAR1].name[0]) {
+      static char name[LEN_GVAR_NAME];
+      getGVarString(name, idx - MIXSRC_GVAR1);
+      static char index[LEN_GVAR_NAME];  // TODO: perhaps name and index consts?
+      strAppendStringWithIndex(index, STR_GV, idx - MIXSRC_GVAR1 + 1);
+
+      snprintf(dest, 16, "%.*s:%.*s", (int)sizeof(index), index,
+              (int)sizeof(name), name);
+    } else {
+      strAppendStringWithIndex(dest, STR_GV, idx - MIXSRC_GVAR1 + 1);
+    }
+#else
     strAppendStringWithIndex(dest, STR_GV, idx - MIXSRC_GVAR1 + 1);
+#endif
   } else if (idx < MIXSRC_FIRST_TIMER) {
     getStringAtIndex(dest, STR_VSRCRAW,
                      idx - MIXSRC_Rud + 1 - MAX_LOGICAL_SWITCHES -
