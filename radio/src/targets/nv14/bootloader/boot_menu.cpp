@@ -264,7 +264,7 @@ void bootloaderDrawFilename(const char* str, uint8_t line, bool selected)
 
 uint32_t bootloaderGetMenuItemCount(int baseCount)
 {
-    if(hardwareOptions.pcbrev  == PCBREV_EL18)
+    if(hardwareOptions.pcbrev == PCBREV_EL18)
         return baseCount+1;
 
     return baseCount;
@@ -307,6 +307,7 @@ bool bootloaderRadioMenu(uint32_t menuItem, event_t event)
 
 void blExit(void)
 {
+  USB_SW_TO_MCU();
   lcdClear();
   lcdRefresh();
   lcdRefreshWait();
