@@ -286,11 +286,11 @@ bool bootloaderRadioMenu(uint32_t menuItem, event_t event)
             if (rfUsbAccess)
             {
                 rfUsbAccess = false;
-                INTERNAL_MODULE_ON();
+                INTERNAL_MODULE_OFF();
                 USB_SW_TO_MCU();
             } else {
                 rfUsbAccess = true;
-                INTERNAL_MODULE_OFF();
+                INTERNAL_MODULE_ON();
                 USB_SW_TO_INTERNAL_MODULE();
             }
             break;
