@@ -861,7 +861,7 @@ bool isTrainerModeAvailable(int mode)
   )
     return false;
 
-#if defined(PCBXLITE) && !defined(PCBXLITES)
+#if (defined(PCBXLITE) && !defined(PCBXLITES)) || defined(RADIO_COMMANDO8)
   if (mode == TRAINER_MODE_MASTER_TRAINER_JACK || mode == TRAINER_MODE_SLAVE)
     return false;
 #endif
@@ -882,7 +882,7 @@ bool isTrainerModeAvailable(int mode)
        mode == TRAINER_MODE_MASTER_CPPM_EXTERNAL_MODULE))
     return false;
 #endif
-  
+
   return true;
 }
 
