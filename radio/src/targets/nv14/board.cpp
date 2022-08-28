@@ -123,7 +123,7 @@ static uint8_t boardGetPcbRev()
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
   GPIO_InitStructure.GPIO_Pin = INTMODULE_PWR_GPIO_PIN;
   GPIO_Init(INTMODULE_PWR_GPIO, &GPIO_InitStructure);
-  delay_ms(1); // delay to let the input sette, else it does not work properly
+  delay_ms(1); // delay to let the input settle, else it does not work properly
 
   // detect NV14 vs EL18
   if (GPIO_ReadInputDataBit(INTMODULE_PWR_GPIO, INTMODULE_PWR_GPIO_PIN) == Bit_SET) {
@@ -137,7 +137,6 @@ static uint8_t boardGetPcbRev()
 
 void boardBootloaderInit()
 {
-
 #if defined(USB_SW_PIN)
   GPIO_InitTypeDef GPIO_InitStructure;
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
